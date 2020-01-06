@@ -11,14 +11,15 @@ public class App
     		   Sortir = "4. Sortir", Aide = "5. De l'aide", Choisir = "Veuillez faire votre choix : ";
     		   		
     	
-    	String Men1_Typcpt = "Type du compte [Types possibles : courant, joint, épargne] : ",
+    	String Men1_Typcpt = "Type du compte [Types possibles : courant, joint, epargne] : ",
     			Men1_Numcpt = "Numéro du compte : ",
     			Men1_Cred = "Première valeur créditée : ",
-    			Men1_Taux = "Taux d'épargne : ",
-    			Men1_Typcpt_choix = "",
-    			Men1_Numcpt_choix = "",
-    			Men1_Cred_choix = "",
-    			Men1_Taux_choix = "";
+    			Men1_Taux = "Taux d'épargne : ";
+    	char	Men1_Typcpt_choix = '\0';
+    	int     Men1_Numcpt_choix = 0;
+    	double  Men1_Cred_choix = 0,
+    			Men1_Taux_choix = 0;
+    	
     			
     			
     			
@@ -28,7 +29,8 @@ public class App
     	String Men3_Msgerr = "option non programmée";
     	
     	Byte choix = 0;
-    	char validation = '\0';
+    	char validation = 'n',
+    		 confirmation = 'K';
     	
     	
     	Scanner Lectureclavier = new Scanner(System.in);
@@ -54,61 +56,76 @@ public class App
     	switch (choix)
     	{
     		case 1:
-    		  while(validation != '\n'&& validation != '\r')
+    		while(confirmation == 'K')
+    		{
+    		  while(validation != 'o')
     		  {
     			//Rentre le type de compte
     			System.out.println(Men1_Typcpt);
-    			while(validation != '\n'&& validation != '\r') 
+    			Men1_Typcpt_choix = Lectureclavier.next().charAt(0);
+    			if (Men1_Typcpt_choix == 'c' || Men1_Typcpt_choix == 'j' || Men1_Typcpt_choix == 'e' )
     			{
-    				validation = (char)System.in.read();
-    				if (validation != '\n' && validation != '\r')
-    				{
-    					Men1_Typcpt_choix = Men1_Typcpt_choix + validation;
-    				}
+    					validation = 'o';
     			}
-    			validation = '\0';
+				else
+				{
+					System.out.println("Choisissez entre courant(c)/joint(j)/epargne(e)");	
+				}
+    			
+    		  }
+    			validation = 'n';
+    			
+    			
     			//Rentre le numéro de compte
     			System.out.println(Men1_Numcpt);
-    			while(validation != '\n'&& validation != '\r') 
+    			while(validation != 'o') 
     			{
-    				validation = (char)System.in.read();
-    				if (validation != '\n' && validation != '\r')
-    				{
-    					Men1_Numcpt_choix = Men1_Numcpt_choix + validation;
-    				}
+    				Men1_Numcpt_choix = Lectureclavier.nextInt();
+    				if (Men1_Numcpt_choix > 0)
+    					validation = 'o';
+    				else
+    					System.out.println("Entrez un numéro de compte positif à 12 chiffres");	
+
     			}
-    			validation = '\0';
+    			validation = 'n';
+    			
     			//Rentre le premier crédit
     			System.out.println(Men1_Cred);
-    			while(validation != '\n'&& validation !='\r') 
+    			while(validation != 'o') 
     			{
-    				validation = (char)System.in.read();
-    				if (validation != '\n' && validation != '\r')
-    				{
-    					Men1_Cred_choix = Men1_Cred_choix + validation;
-    				}
+    				Men1_Cred_choix = Lectureclavier.nextInt();
+    				if (Men1_Cred_choix > 0)
+    					validation = 'o';
+    				else
+    					System.out.println("Entrez une valeur positive");	
+
     			}
-    			validation = '\0';
+    			validation = 'n';
+    			
     			//Rentre le taux
     			System.out.println(Men1_Taux);
-    			while(validation != '\n'&& validation != '\r') 
+    			while(validation != 'o') 
     			{
-    				validation = (char)System.in.read();
-    				if (validation != '\n' && validation != '\r')
-    				{
-    					Men1_Taux_choix = Men1_Taux_choix + validation;
-    				}
+    				Men1_Taux_choix = Lectureclavier.nextInt();
+    				if (Men1_Taux_choix > 0 && Men1_Taux_choix <10)
+    					validation = 'o';
+    				else
+    					System.out.println("Choisissez un taux entre 0 et 10%");	
+
     			}
-    			validation = '\0';
+    			validation = 'n';
+    			
     			//Récap
     			System.out.println(Men1_Typcpt+Men1_Typcpt_choix);
     	    	System.out.println(Men1_Numcpt+Men1_Numcpt_choix);
     	    	System.out.println(Men1_Cred+Men1_Cred_choix);
     	    	System.out.println(Men1_Taux+Men1_Taux_choix);
     	    	System.out.println(" ");
-    	    	System.out.println("Si les informations sont valides appuyez sur entrée");
-    	    	validation = (char)System.in.read();
-    		  }
+    	    	System.out.println("Si les informations sont valides écrivez O, sinon K");
+    	    	confirmation = Lectureclavier.next().charAt(0);
+    	}
+ 
+    		  
     			
   
     		break;
@@ -133,7 +150,7 @@ public class App
     			{
     				System.out.println(Creacpt+ " : Vous permez de créer un compte avec un premier crédit à un taux choisi");
     	    		System.out.println(Affcpt+" : Vous permez d'obtenir les informations d'un compte précis");
-    	    		System.out.println(Crealgn+" : Vous permez de créditer ou débiter un compte déjà existant");
+    	    		System.out.println(Crealgn+" 5: Vous permez de créditer ou débiter un compte déjà existant");
     	    		System.out.println(Sortir+" : Vous permez de sortir");
     	    		System.out.println("Appuyez sur entrée pour revenir au menu principal");
     	    		validation = (char) System.in.read();
@@ -145,6 +162,8 @@ public class App
     	}
     	
     }while(choix != 4);
+    
+
     	
     	
     	

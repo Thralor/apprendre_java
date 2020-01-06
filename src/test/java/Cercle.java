@@ -1,24 +1,12 @@
 
-import java.util.*;
 
-public class Cercle {
+import java.io.IOException;
 
-	public static void main(String[] args) {
-		
-
-		double unRayon, lePerimetre ;
-		
-		Scanner lectureClavier = new Scanner(System.in);
-		
-		System.out.print("Valeur du rayon : ");
-
-		unRayon = lectureClavier.nextDouble();
-		
-		lePerimetre = 2* Math.PI*unRayon;
-		
-		System.out.print("Le Cercle de rayon "+unRayon+ " a pour périmètre "+lePerimetre);
-		
-
-	}
-
+public class TestInput {
+  public static void main(String[] args) throws IOException {
+    while (true) {
+      int c = System.in.read();
+      System.out.println("[" + c + "] [" + ((char) c) + "]");
+    }
+  }
 }
